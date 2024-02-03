@@ -16,6 +16,18 @@ header {
   margin: 1rem auto;
 }
 
+footer {
+  margin: 3rem auto 1rem;
+  text-align: center;
+  color: #8b8b8b;
+  font-size: 0.875rem;
+
+  & >a{
+  color: unset;
+  text-decoration: none;
+  }
+}
+
 button {
   background-color: #f0f0f0;
   color: #969696;
@@ -110,8 +122,8 @@ button {
     margin-right: 0.25rem;
   }
 
-  &-time{
-  color: #404040;
+  &-time {
+    color: #404040;
   }
 
   &-content {
