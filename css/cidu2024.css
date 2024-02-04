@@ -122,6 +122,11 @@ button {
   font-size: 1.5rem;
   color: #999;
 }
+@media (max-width: 992px) {
+  .card-icon {
+    font-size: 2rem;
+  }
+}
 .card-icon.fb {
   color: #3f75cd;
 }
