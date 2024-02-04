@@ -122,6 +122,21 @@ button {
   font-size: 1.5rem;
   color: #999;
 }
+.card-icon.fb {
+  color: #3f75cd;
+}
+.card-icon.ig {
+  color: #d744a1;
+}
+.card-icon.line {
+  color: #419f41;
+}
+.card-icon.link {
+  color: #707070;
+}
+.card-icon.map {
+  color: #c23d3d;
+}
 .card-date {
   min-width: 60px;
   text-align: center;

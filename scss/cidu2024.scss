@@ -127,17 +127,25 @@ button {
     color: #999;
     //  padding: 0.25rem;
 
-    // &.fb {
-    //   color: #0866ff;
-    // }
+    &.fb {
+      color: #3f75cd;
+    }
 
-    // &.ig {
-    //   color: #f7009d;
-    // }
+    &.ig {
+      color: #d744a1;
+    }
 
-    // &.map {
-    //   color: #f74d4d;
-    // }
+    &.line {
+      color: #419f41;
+    }
+
+    &.link {
+      color: #707070;
+    }
+
+    &.map {
+      color: #c23d3d;
+    }
   }
 
   &-date {
