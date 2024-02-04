@@ -42,23 +42,14 @@ body {
 }
 
 .footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   margin: 3rem auto 1rem;
   text-align: center;
   color: #8b8b8b;
   font-size: 0.875rem;
   font-weight: normal;
 }
-.footer > a {
-  color: unset;
+.footer a {
+  color: #8b8b8b;
   text-decoration: none;
 }
 

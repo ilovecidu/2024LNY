@@ -41,18 +41,16 @@ body {
 }
 
 .footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ 
   margin: 3rem auto 1rem;
   text-align: center;
   color: #8b8b8b;
   font-size: 0.875rem;
   font-weight: normal;
 
-  & > a {
-    color: unset;
-    text-decoration: none;
+  & a {
+    color: #8b8b8b;
+    text-decoration: none; 
   }
 }
 
