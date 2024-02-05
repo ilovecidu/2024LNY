@@ -14,7 +14,7 @@ body {
 }
 
 .nav-row {
-  background-color: #FCFCFE;
+  background-color: #fcfcfe;
   top: 0;
   z-index: 999;
   padding: 0.5rem;
@@ -132,7 +132,7 @@ button {
   color: #848484;
 }
 .card-icon.map {
-  color: #ce5252;
+  color: #e25252;
 }
 .card-date {
   min-width: 60px;

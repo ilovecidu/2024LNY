@@ -14,14 +14,13 @@ body {
 }
 
 .nav-row {
-   background-color: #FCFCFE;
- 
-    top: 0;
-    z-index: 999;
-    padding: 0.5rem;
+  background-color: #fcfcfe;
+
+  top: 0;
+  z-index: 999;
+  padding: 0.5rem;
 
   @media (max-width: 992px) {
-   
     // box-shadow: 0 0 5px #000000cc;
   }
 }
@@ -41,7 +40,6 @@ body {
 }
 
 .footer {
- 
   margin: 3rem auto 1rem;
   text-align: center;
   color: #8b8b8b;
@@ -50,7 +48,7 @@ body {
 
   & a {
     color: #8b8b8b;
-    text-decoration: none; 
+    text-decoration: none;
   }
 }
 
@@ -123,11 +121,11 @@ button {
   }
 
   &-icon {
-    font-size:1.5rem;
+    font-size: 1.5rem;
     color: #999;
     //  padding: 0.25rem;
 
-    @media (max-width:992px) {
+    @media (max-width: 992px) {
       font-size: 2rem;
     }
 
@@ -148,7 +146,7 @@ button {
     }
 
     &.map {
-      color: #ce5252;
+      color: #e25252;
     }
   }
 
@@ -178,5 +176,3 @@ button {
     color: #999;
   }
 }
-
- 

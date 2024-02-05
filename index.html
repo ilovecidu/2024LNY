@@ -55,6 +55,7 @@
             <div class="row mb-3 nav-row sticky-top">
                 <div class="col">
                     <button data-dimension="date" data-value="all" class="selected">ALL</button>
+                    <button data-dimension="date" data-value="d206">2/06(四)小年夜</button>
                     <button data-dimension="date" data-value="d208">2/08(四)小年夜</button>
                     <button data-dimension="date" data-value="d209">2/09(五)除夕</button>
                     <button data-dimension="date" data-value="d210">2/10(六)初一</button>
@@ -686,7 +687,7 @@
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var todayFormatted = 'd' + mm + dd;
+            var todayFormatted = 'd2' + dd;
 
             // 檢查是否有匹配今天日期的按鈕
             var hasMatchingDate = false;
