@@ -687,10 +687,28 @@
  
 //  篩選與曝布流
 document.addEventListener('DOMContentLoaded', function () {
-    var iso = new Isotope('.grid', {
-        itemSelector: '.grid-item',
-        layoutMode: 'masonry'
+   // 初始化 Isotope
+var iso = new Isotope('.grid', {
+    itemSelector: '.grid-item',
+    layoutMode: 'masonry',
+    // 添加隨機排序方法
+    getSortData: {
+        random: function(itemElem) { // itemElem 是每一個 .grid-item 的 DOM 元素
+            return Math.random();
+        }
+    }
+});
+
+// 篩選後隨機排序
+document.querySelectorAll('.filter-button-group button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        // 在這裡調用隨機排序
+        iso.arrange({ sortBy: 'random' });
     });
+});
+
+// 或者在初始加載時就隨機排序
+iso.arrange({ sortBy: 'random' });
 
     // 定義篩選條件變量
     var dateFilter = '*';
@@ -738,6 +756,9 @@ document.querySelectorAll('.filter-button').forEach(function(button) {
         this.classList.add('selected');
     });
 });
+
+
+
 
 </script>
 
