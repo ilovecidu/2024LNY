@@ -53,23 +53,24 @@
 
         <div class="container">
             <div class="row mb-3 nav-row sticky-top">
-                <div class="col">
-                    <button data-dimension="date" data-value="all" class="selected">ALL</button> 
-                    <button data-dimension="date" data-value="d208">2/08(四)小年夜</button>
-                    <button data-dimension="date" data-value="d209">2/09(五)除夕</button>
-                    <button data-dimension="date" data-value="d210">2/10(六)初一</button>
-                    <button data-dimension="date" data-value="d211">2/11(日)初二</button>
-                    <button data-dimension="date" data-value="d212">2/12(一)初三</button>
-                    <button data-dimension="date" data-value="d213">2/13(二)初四</button>
-                    <button data-dimension="date" data-value="d214">2/14(三)初五</button>
+                <div class="col filter-button-group">
+                    <!-- 日期 -->
+                    <button  class="filter-button selected" data-dimension="date" data-filter="*">ALL</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d208">2/08(四)小年夜</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d209">2/09(五)除夕</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d210">2/10(六)初一</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d211">2/11(日)初二</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d212">2/12(一)初三</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d213">2/13(二)初四</button>
+                    <button  class="filter-button" data-dimension="date" data-filter=".d214">2/14(三)初五</button>
 
                     <!-- 類別 -->
-                    <button data-dimension="cate" data-value="all" class="selected">ALL</button>
-                    <button data-dimension="cate" data-value="cate1">吃</button>
-                    <button data-dimension="cate" data-value="cate2">喝</button>
-                    <button data-dimension="cate" data-value="cate3">玩</button>
-                    <button data-dimension="cate" data-value="cate4">其</button>
-                    <button data-dimension="cate" data-value="cate5">醫</button>
+                    <button  class="filter-button selected" data-dimension="cate" data-filter="*">ALL</button>
+                    <button  class="filter-button" data-dimension="cate" data-filter=".cate1">吃</button>
+                    <button  class="filter-button" data-dimension="cate" data-filter=".cate2">喝</button>
+                    <button  class="filter-button" data-dimension="cate" data-filter=".cate3">玩</button>
+                    <button  class="filter-button" data-dimension="cate" data-filter=".cate4">其</button>
+                    <button  class="filter-button" data-dimension="cate" data-filter=".cate5">醫</button>
                 </div>
             </div>
 
@@ -613,7 +614,7 @@
                             return ''; // 如果匹配失敗，返回空字符串
                         }).join(' ');
 
-                        cardElement.className = `grid-item col-lg-6 col-xxl-4 filterDiv ${businessDaysClasses} ${cateClass} mb-2 mb-lg-3`;
+                        cardElement.className = `grid-item col-lg-6 col-xxl-4 filterDiv ${businessDaysClasses} ${cateClass} `;
                         cardElement.innerHTML = `
     <div class="card store-card">
       <div class="card-header">
@@ -677,96 +678,89 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
 
-    <script>
-        $(document).ready(function () {
-            // 獲取今天的日期並格式化為 'mmdd' 格式
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var todayFormatted = 'd2' + dd;
 
-            // 檢查是否有匹配今天日期的按鈕
-            var hasMatchingDate = false;
-            $('button[data-dimension="date"]').each(function () {
-                if ($(this).data('value') === todayFormatted) {
-                    // 如果有匹配的日期，移除其他按鈕的 'selected' 類並給匹配的按鈕添加 'selected'
-                    $('button[data-dimension="date"]').removeClass('selected');
-                    $(this).addClass('selected');
-                    hasMatchingDate = true;
-                    return false; // 跳出循環
+
+<script>
+ 
+//  篩選與曝布流
+document.addEventListener('DOMContentLoaded', function () {
+   // 初始化 Isotope
+var iso = new Isotope('.grid', {
+    itemSelector: '.grid-item',
+    layoutMode: 'masonry',
+    // 添加隨機排序方法
+    getSortData: {
+        random: function(itemElem) { // itemElem 是每一個 .grid-item 的 DOM 元素
+            return Math.random();
+        }
+    }
+});
+
+// 篩選後隨機排序
+document.querySelectorAll('.filter-button-group button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        // 在這裡調用隨機排序
+        iso.arrange({ sortBy: 'random' });
+    });
+});
+
+// 或者在初始加載時就隨機排序
+iso.arrange({ sortBy: 'random' });
+
+    // 定義篩選條件變量
+    var dateFilter = '*';
+    var cateFilter = '*';
+
+    document.querySelectorAll('.filter-button').forEach(function(button) {
+        button.addEventListener('click', function() {
+            var dimension = button.getAttribute('data-dimension');
+            var filter = button.getAttribute('data-filter');
+            
+            // 更新篩選條件
+            if (dimension === 'date') {
+                dateFilter = filter;
+            } else if (dimension === 'cate') {
+                cateFilter = filter;
+            } else {
+                dateFilter = cateFilter = '*'; // 重置篩選
+            }
+            
+            // 應用篩選
+            iso.arrange({
+                filter: function() {
+                    // 檢查當前元素是否匹配兩個篩選條件
+                    var isDateMatch = dateFilter === '*' ? true : $(this).is(dateFilter);
+                    var isCateMatch = cateFilter === '*' ? true : $(this).is(cateFilter);
+                    return isDateMatch && isCateMatch;
                 }
             });
-
-            // 如果沒有匹配的日期，則選擇 'ALL' 按鈕
-            if (!hasMatchingDate) {
-                $('button[data-dimension="date"][data-value="all"]').addClass('selected');
-            }
-
-            // 隨機排列 grid-item
-            var $gridItems = $('.grid-item');
-            $gridItems.sort(function () {
-                return 0.5 - Math.random();
-            }).detach().appendTo('.grid');
-
-            // 初始化 Masonry
-            var $grid = $('.grid').masonry({
-                itemSelector: '.grid-item',
-                columnWidth: '.grid-item',
-                percentPosition: true
-            });
-
-            // 篩選項目函數
-            function filterItems() {
-                var selectedDate = $('button[data-dimension="date"].selected').data('value');
-                var selectedCate = $('button[data-dimension="cate"].selected').data('value');
-
-                // 根據選中的日期和類別篩選 grid-item
-                $('.grid-item').each(function () {
-                    var $this = $(this);
-                    var show = true;
-
-                    if (selectedDate !== 'all' && !$this.hasClass(selectedDate)) {
-                        show = false;
-                    }
-
-                    if (selectedCate !== 'all' && !$this.hasClass(selectedCate)) {
-                        show = false;
-                    }
-
-                    if (show) {
-                        $this.show();
-                    } else {
-                        $this.hide();
-                    }
-                });
-
-                // 重新初始化 Masonry 布局以適應內容變化
-                $grid.masonry('layout');
-            }
-
-            // 綁定篩選按鈕的點擊事件
-$('button[data-dimension="date"], button[data-dimension="cate"]').click(function () {
-    filterItems();
+        });
+    });
 });
 
 
-            // 為日期和類別按鈕添加點擊事件監聽器
-            $('button[data-dimension="date"], button[data-dimension="cate"]').click(function () {
-                var dimension = $(this).data('dimension');
-                $('button[data-dimension="' + dimension + '"]').removeClass('selected');
-                $(this).addClass('selected');
-                filterItems();
-            });
+// 頁籤切換
+document.querySelectorAll('.filter-button').forEach(function(button) {
+    button.addEventListener('click', function() {
+        // 移除同類別按鈕上的selected類
+        if (this.getAttribute('data-dimension') === 'date') {
+            document.querySelectorAll('.filter-button[data-dimension="date"]').forEach(btn => btn.classList.remove('selected'));
+        } else if (this.getAttribute('data-dimension') === 'cate') {
+            document.querySelectorAll('.filter-button[data-dimension="cate"]').forEach(btn => btn.classList.remove('selected'));
+        }
 
-            // 初始化類別按鈕為 'all'
-            $('button[data-dimension="cate"][data-value="all"]').addClass('selected');
-            // 預設篩選以適應初始化狀態
-            filterItems();
-        });
-    </script>
+        // 將selected類添加到當前被點擊的按鈕
+        this.classList.add('selected');
+    });
+});
+
+
+
+
+</script>
 
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
