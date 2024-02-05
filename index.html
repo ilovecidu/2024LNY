@@ -54,8 +54,7 @@
         <div class="container">
             <div class="row mb-3 nav-row sticky-top">
                 <div class="col">
-                    <button data-dimension="date" data-value="all" class="selected">ALL</button>
-                    <button data-dimension="date" data-value="d206">2/06(四)小年夜</button>
+                    <button data-dimension="date" data-value="all" class="selected">ALL</button> 
                     <button data-dimension="date" data-value="d208">2/08(四)小年夜</button>
                     <button data-dimension="date" data-value="d209">2/09(五)除夕</button>
                     <button data-dimension="date" data-value="d210">2/10(六)初一</button>
@@ -747,6 +746,12 @@
                 // 重新初始化 Masonry 布局以適應內容變化
                 $grid.masonry('layout');
             }
+
+            // 綁定篩選按鈕的點擊事件
+$('button[data-dimension="date"], button[data-dimension="cate"]').click(function () {
+    filterItems();
+});
+
 
             // 為日期和類別按鈕添加點擊事件監聽器
             $('button[data-dimension="date"], button[data-dimension="cate"]').click(function () {
