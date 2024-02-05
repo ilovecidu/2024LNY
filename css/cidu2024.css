@@ -139,7 +139,7 @@ button {
   text-align: center;
   font-size: 0.75rem;
   line-height: 1;
-  padding: 2px;
+  padding: 2px 1px;
   color: #ff839a;
   border: #ff839a 1px solid;
   border-radius: 4px;
@@ -163,7 +163,6 @@ button {
 }
 @media (max-width: 992px) {
   .grid-item {
-    padding: 0.5rem 0.75rem;
-    width: 100%;
+    width: 100vw;
   }
 }
