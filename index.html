@@ -52,13 +52,13 @@
                 <div class="col filter-button-group">
                     <!-- 日期 -->
                     <button class="filter-button selected" data-dimension="date" data-filter="*">ALL</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d208">2/08(四)小年夜</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d209">2/09(五)除夕</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d210">2/10(六)初一</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d211">2/11(日)初二</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d212">2/12(一)初三</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d213">2/13(二)初四</button>
-                    <button class="filter-button" data-dimension="date" data-filter=".d214">2/14(三)初五</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0208">2/08(四)小年夜</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0209">2/09(五)除夕</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0210">2/10(六)初一</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0211">2/11(日)初二</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0212">2/12(一)初三</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0213">2/13(二)初四</button>
+                    <button class="filter-button" data-dimension="date" data-filter=".d0214">2/14(三)初五</button>
 
                     <!-- 類別 -->
                     <button class="filter-button selected" data-dimension="cate" data-filter="*">ALL</button>
@@ -817,7 +817,7 @@
                         const businessDaysClasses = card.businessDays.map(day => {
                             const monthDay = day.date.match(/\d+\/(\d+)/); // 匹配月份和日期
                             if (monthDay && monthDay[1]) {
-                                return `d2${monthDay[1].padStart(2, '0')}`; // 生成class，如d208
+                                return `d02${monthDay[1].padStart(2, '0')}`; // 生成class，如d208
                             }
                             return ''; // 如果匹配失敗，返回空字符串
                         }).join(' ');
@@ -886,31 +886,35 @@
         //  篩選與曝布流
      
         document.addEventListener('DOMContentLoaded', function () {
-            // 初始化 Isotope
-            var iso = new Isotope('.grid', {
-                itemSelector: '.grid-item',
-                layoutMode: 'masonry',
-                // 添加隨機排序方法
-                getSortData: {
-                    random: function (itemElem) { // itemElem 是每一個 .grid-item 的 DOM 元素
-                        return Math.random();
-                    }
-                }
-            });
+         
+             // 初始化 Isotope
+    var iso = new Isotope('.grid', {
+        itemSelector: '.grid-item',
+        layoutMode: 'masonry'
+    });
 
-            // var today = new Date();
-            // var dd = String(today.getDate()).padStart(2, '0');
-            // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            // var yyyy = today.getFullYear();
-            // var todayFormatted = '.d2' + dd; // 格式化日期以匹配 data-filter 屬性
+    // 獲取當前日期
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // 月份是從0開始的
+    var yyyy = today.getFullYear();
 
-            // // 檢查並激活對應的日期按鈕
-            // var dateButtons = document.querySelectorAll('.filter-button[data-dimension="date"]');
-            // dateButtons.forEach(function (button) {
-            //     if (button.getAttribute('data-filter') === todayFormatted) {
-            //         button.click(); // 模擬點擊或直接添加 selected 類
-            //     }
-            // });
+    // 構造今天日期的class名稱，格式為 ".dMMDD"，例如 ".d0209"
+    var todayClass = `.d${mm}${dd}`;
+
+    // 選擇對應當天日期的頁籤並添加selected類
+    var todayButton = document.querySelector(`.filter-button[data-filter="${todayClass}"]`);
+    if (todayButton) {
+        document.querySelectorAll('.filter-button[data-dimension="date"]').forEach(btn => btn.classList.remove('selected'));
+        todayButton.classList.add('selected');
+
+        // 使用Isotope過濾顯示對應當天日期的內容
+        iso.arrange({
+            filter: todayClass
+        });
+    } else {
+        console.log('今天沒有對應的頁籤');
+    }
 
 
             // 篩選後隨機排序
@@ -954,7 +958,6 @@
                 });
             });
         });
-
         // 頁籤切換
         document.querySelectorAll('.filter-button').forEach(function (button) {
             button.addEventListener('click', function () {
